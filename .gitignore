@@ -1,0 +1,7 @@
+.hg*
+ebin/*.beam
+erl_crash.dump
+priv/log/*
+src/priv/log/*
+
+deps/mochiweb/ebin/*.beam
