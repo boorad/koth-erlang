@@ -7,7 +7,8 @@
              koth,
              koth_app,
              koth_sup,
-             koth_resource
+             koth_resource,
+             koth_pick_resource
             ]},
   {registered, []},
   {applications, [
