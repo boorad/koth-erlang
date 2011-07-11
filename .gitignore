@@ -1,5 +1,6 @@
 .hg*
 *.beam
 erl_crash.dump
+deps/*
 priv/log/*
 src/priv/log/*
