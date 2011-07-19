@@ -1,13 +1,14 @@
-%% @author author <author@example.com>
-%% @copyright YYYY author.
-%% @doc Example webmachine_resource.
-
 -module(koth_resource).
--export([init/1, to_html/2]).
+
+-export([init/1, content_types_provided/2, to_json/2]).
 
 -include_lib("webmachine/include/webmachine.hrl").
 
 init([]) -> {ok, undefined}.
 
-to_html(ReqData, State) ->
-    {"<html><body>Welcome to KOTH</body></html>", ReqData, State}.
+content_types_provided(RD, Ctx) ->
+  {[{"application/json", to_json}], RD, Ctx}.
+
+to_json(RD, Ctx) ->
+  Result = {struct, [{<<"message">>, <<"Welcome to KOTH API">>}]},
+  {mochijson2:encode(Result), RD, Ctx}.

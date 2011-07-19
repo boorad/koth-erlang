@@ -14,7 +14,7 @@
   {applications, [
                   kernel,
                   stdlib,
-                  crypto,
+                  erlauth,
                   mochiweb,
                   webmachine
                  ]},
