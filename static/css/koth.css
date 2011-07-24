@@ -1,0 +1,12 @@
+.hide {
+    display: none;
+}
+
+#login-wrapper .links div,
+#login-wrapper #login-form {
+    display: inline;
+}
+
+#login-wrapper #login-error {
+    display: block;
+}

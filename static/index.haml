@@ -1,0 +1,51 @@
+!!! Strict
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta( http-equiv="X-UA-Compatible" content="chrome=1" )
+    %title King of the Hill
+    %link{:href => "images/favicon.png", :rel => "icon", :type => "image/png"}
+    /%link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "css/jquery-ui-1.8.14.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "css/koth.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+
+  %body
+    #login-wrapper
+      #not-logged-in.hide
+        .links
+          #login-link
+            %a( href="javascript: KOTH.toggle_login();" ) Login
+          |
+          #register-link
+            %a( href="javascript: KOTH.toggle_register();" ) Register
+        #login-form-wrapper.hide
+          %form#login-form( action="javascript:;" )
+            %label( for="username" ) Email Address:
+            %input( name="username" id="username" )
+            %label( for="password" ) Password:
+            %input( name="password" id="password" type="password" )
+            %button#login-button.button( type="submit" ) Login
+          %button#login-cancel.button( onclick="javascript:KOTH.toggle_login();") Close
+          #login-error
+      #logged-in.links.hide
+        Welcome,
+        %span#welcome
+        |
+        #logout-link
+          %a( href="javascript: KOTH.logout();" ) Log out
+      #register-form-wrapper.hide
+        register
+
+    #landing-wrapper.hide
+      Landing - not logged in
+
+    #koth-wrapper.hide
+      Koth - logged in
+
+    /%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js", :type => "text/javascript"}
+    /%script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js", :type => "text/javascript"}
+    %script{:src => "js/jquery-1.6.2-min.js", :type => "text/javascript"}
+    %script{:src => "js/jquery-ui-1.8.14-min.js", :type => "text/javascript"}
+    %script{:src => "js/auth.js", :type => "text/javascript"}
+    %script{:src => "js/base64.js", :type => "text/javascript"}
+    %script{:src => "js/koth.js", :type => "text/javascript"}

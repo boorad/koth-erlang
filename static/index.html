@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta content='chrome=1' http-equiv='X-UA-Compatible'>
+    <title>King of the Hill</title>
+    <link href='images/favicon.png' rel='icon' type='image/png'>
+    <!-- %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css", :media => "screen", :rel => "stylesheet", :type => "text/css"} -->
+    <link href='css/jquery-ui-1.8.14.css' media='screen' rel='stylesheet' type='text/css'>
+    <link href='css/koth.css' media='screen' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div id='login-wrapper'>
+      <div class='hide' id='not-logged-in'>
+        <div class='links'>
+          <div id='login-link'>
+            <a href='javascript: KOTH.toggle_login();'>Login</a>
+          </div>
+          |
+          <div id='register-link'>
+            <a href='javascript: KOTH.toggle_register();'>Register</a>
+          </div>
+        </div>
+        <div class='hide' id='login-form-wrapper'>
+          <form action='javascript:;' id='login-form'>
+            <label for='username'>Email Address:</label>
+            <input id='username' name='username'>
+            <label for='password'>Password:</label>
+            <input id='password' name='password' type='password'>
+            <button class='button' id='login-button' type='submit'>Login</button>
+          </form>
+          <button class='button' id='login-cancel' onclick='javascript:KOTH.toggle_login();'>Close</button>
+          <div id='login-error'></div>
+        </div>
+      </div>
+      <div class='links hide' id='logged-in'>
+        Welcome,
+        <span id='welcome'></span>
+        |
+        <div id='logout-link'>
+          <a href='javascript: KOTH.logout();'>Log out</a>
+        </div>
+      </div>
+      <div class='hide' id='register-form-wrapper'>
+        register
+      </div>
+    </div>
+    <div class='hide' id='landing-wrapper'>
+      Landing - not logged in
+    </div>
+    <div class='hide' id='koth-wrapper'>
+      Koth - logged in
+    </div>
+    <!-- %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js", :type => "text/javascript"} -->
+    <!-- %script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js", :type => "text/javascript"} -->
+    <script src='js/jquery-1.6.2-min.js' type='text/javascript'></script>
+    <script src='js/jquery-ui-1.8.14-min.js' type='text/javascript'></script>
+    <script src='js/auth.js' type='text/javascript'></script>
+    <script src='js/base64.js' type='text/javascript'></script>
+    <script src='js/koth.js' type='text/javascript'></script>
+  </body>
+</html>
