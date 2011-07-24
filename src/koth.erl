@@ -1,52 +1,30 @@
-%% @author author <author@example.com>
-%% @copyright YYYY author.
-
-%% @doc koth startup code
-
 -module(koth).
--author('author <author@example.com>').
--export([start/0, start_link/0, stop/0, restart/0]).
 
-ensure_started(App) ->
-    case application:start(App) of
-	ok ->
-	    ok;
-	{error, {already_started, App}} ->
-	    ok
-    end.
+-export([start/0, stop/0, restart/0]).
 
-%% @spec start_link() -> {ok,Pid::pid()}
-%% @doc Starts the app for inclusion in a supervisor tree
-start_link() ->
-    ensure_started(sasl),
-    ensure_started(crypto),
-    ensure_started(mochiweb),
-    application:set_env(webmachine, webmachine_logger_module,
-                        webmachine_logger),
-    ensure_started(webmachine),
-    koth_sup:start_link().
+-define(DEPS, [sasl, crypto, mochiweb, erlauth]).
 
-%% @spec start() -> ok
-%% @doc Start the koth server.
 start() ->
-    ensure_started(sasl),
-    ensure_started(crypto),
-    ensure_started(mochiweb),
-    application:set_env(webmachine, webmachine_logger_module,
-                        webmachine_logger),
-    ensure_started(webmachine),
-    application:start(koth).
+  application:set_env(webmachine, webmachine_logger_module,
+                      webmachine_logger),
+  start_deps(),
+  application:start(koth).
 
-%% @spec stop() -> ok
-%% @doc Stop the koth server.
 stop() ->
-    Res = application:stop(koth),
-    application:stop(webmachine),
-    application:stop(mochiweb),
-    application:stop(crypto),
-    application:stop(sasl),
-    Res.
+  application:stop(koth),
+  stop_deps().
 
 restart() ->
-    stop(),
-    start().
+  stop(),
+  start().
+
+%%
+%% internal
+%%
+
+start_deps() ->
+  lists:foreach(fun(Dep) -> koth_util:ensure_started(Dep) end, ?DEPS).
+
+stop_deps() ->
+  lists:foreach(fun(Dep) -> koth_util:ensure_started(Dep) end,
+                lists:reverse(?DEPS)).

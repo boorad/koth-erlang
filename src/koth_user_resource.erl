@@ -8,34 +8,25 @@
         ]).
 
 -include("koth.hrl").
--include_lib("webmachine/include/webmachine.hrl").
+-include_lib("erlauth/include/erlauth.hrl").
 
-init([]) -> {ok, undefined}.
+init(Config) ->
+  %% {{trace, "/tmp"}, Config}. %% debugging code
+  {ok, Config}.                 %% regular code
 
 content_types_provided(RD, Ctx) ->
   {[{"application/json", to_json}], RD, Ctx}.
 
 is_authorized(RD, Ctx) ->
-  koth_authz:authz(user_and_admin, RD, Ctx).
+  koth_authz:authz(user_or_admin, RD, Ctx).
 
 resource_exists(RD, Ctx) ->
-  User = koth_authz:get_user(RD),
-  % get user info from db
-  Query = ""
-    "SELECT user_id, username, user_first, user_last, user_timezone "
-    "FROM users "
-    "WHERE user_id=$1;",
-  case koth_util:equery(Query, [User]) of
-    {ok, Cols, [Row|_]} ->
-      %% make some json to return
-      Fields = koth_util:get_fields(Cols),
-      Data = lists:zip(Fields, tuple_to_list(Row)),
-      Result = {struct, [{<<"user">>, {struct, Data}}]},
-      {true, RD, Result};
-    _ ->
-      %% ensure 404 not found
-      {false, RD, Ctx}
+  case lists:keyfind(user, 1, Ctx) of
+    {user, _} -> {true, RD, Ctx};
+    _ -> {false, RD, Ctx}
   end.
 
-to_json(RD, Result) ->
-  {mochijson2:encode(Result), RD, Result}.
+to_json(RD, Ctx) ->
+  {user, User=#user{}} = lists:keyfind(user, 1, Ctx),
+  Resp = erlauth_util:user_resp(User),
+  {Resp, RD, Ctx}.

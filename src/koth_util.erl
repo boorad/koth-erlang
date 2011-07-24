@@ -21,7 +21,7 @@ get_config(Key) ->
   ConfigFile = code:priv_dir(koth) ++ "/koth.conf",
   {ok, Terms} = file:consult(ConfigFile),
   [{koth_config, Configs}|_] = Terms,
-  util:get_value(Key, Configs).
+  get_value(Key, Configs).
 
 ensure_started(App) ->
   case application:start(App) of
