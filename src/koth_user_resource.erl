@@ -15,7 +15,7 @@ init(Config) ->
   {ok, Config}.                 %% regular code
 
 content_types_provided(RD, Ctx) ->
-  {[{"application/json", to_json}], RD, Ctx}.
+  {[{"application/koth-v1+json", to_json}], RD, Ctx}.
 
 is_authorized(RD, Ctx) ->
   koth_authz:authz(user_or_admin, RD, Ctx).

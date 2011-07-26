@@ -4,13 +4,30 @@ var KOTH = {};
 (function($, A) {
 
     // http://twitter.com/#!/ericflo/status/10598118215122944
-    $.ajaxSetup({cache: false});
+    $.ajaxSetup({
+        cache: false,
+        accepts: {
+            "koth"   : "application/koth-v1+json",
+            "erlauth": "application/erlauth-v1+json"
+        },
+        converters: {
+            "text koth"   : jQuery.parseJSON,
+            "text erlauth": jQuery.parseJSON
+        }
+    });
 
     $(document).ready(function() {
         A.init_login();
         if( !Auth.getUser(A.get_user_callback) ) {
             A.not_logged_in();
         }
+        $("#msg").ajaxError(function(e, req, settings) {
+            if( settings.url.substr(0,10) == "/api/user/" ) {
+                A.not_logged_in();
+            } else {
+
+            }
+        });
     });
 
 
@@ -29,6 +46,8 @@ var KOTH = {};
                 } else {
                     A.not_logged_in();
                 }
+            } else {
+                A.not_logged_in();
             }
         },
 
@@ -42,6 +61,7 @@ var KOTH = {};
         },
 
         not_logged_in: function() {
+            Auth.clearCookies();
             $("#welcome").empty();
             $("#not-logged-in").show();
             $("#logged-in").hide();
@@ -64,7 +84,7 @@ var KOTH = {};
                 type: "POST",
                 url: "/api/login",
                 data: str,
-                dataType: "json",
+                dataType: "erlauth",
                 success: A.get_user_callback,
                 error: function(xhr, status, error) {
                     var msg = "";

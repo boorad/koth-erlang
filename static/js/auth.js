@@ -54,10 +54,10 @@ var Auth = {};
     };
 
     Auth.getUser = function(callback) {
-        var usernum = Auth.getUsernum()
+        var usernum = Auth.getUsernum();
         if( !usernum ) return null;
         var url = "/api/user/" + usernum;
-        $.get(url, '', callback, "json");
+        $.get(url, '', callback, "koth");
         return usernum; // something not null
     };
 
