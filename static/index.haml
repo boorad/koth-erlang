@@ -10,6 +10,7 @@
     %link{:href => "css/koth.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
 
   %body
+    %ul#msg
     #login-wrapper
       #not-logged-in.hide
         .links
@@ -37,10 +38,13 @@
         register
 
     #landing-wrapper.hide
-      Landing - not logged in
+      %p KOTH (King of the Hill) is an NFL Pick'em / Survivor game.  You pick one team to win each week.  If they win, you go on, if they lose or tie, you are out.  The last entry standing is King of the Hill.
+      %p To participate in this year's KOTH game, please register by following the 'Register' link above.  If you have already registered with the site, please login by following the 'Login' link above.
 
     #koth-wrapper.hide
-      Koth - logged in
+      #dashboard
+      #results
+      #picks
 
     /%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js", :type => "text/javascript"}
     /%script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js", :type => "text/javascript"}
