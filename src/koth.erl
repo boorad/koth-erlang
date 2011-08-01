@@ -2,7 +2,7 @@
 
 -export([start/0, stop/0, restart/0]).
 
--define(DEPS, [sasl, crypto, mochiweb, erlauth]).
+-define(DEPS, [sasl, crypto, bcrypt, mochiweb, erlauth, webmachine]).
 
 start() ->
   application:set_env(webmachine, webmachine_logger_module,
