@@ -1,1 +1,1 @@
--include_lib("webmachine/include/webmachine.hrl").
+-define(AUTH_HEAD, "KOTH Realm").
