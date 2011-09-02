@@ -34,10 +34,53 @@
         |
         #logout-link
           %a( href="javascript: KOTH.logout();" ) Log out
-      #register-form-wrapper.hide
-        register
 
+    #register-wrapper.hide
+      %h2 Register for KOTH
+      %form#register-form( action="javascript:;" )
+        %table
+          %tr
+            %th
+              %label( for="register_username" ) Email Address:
+            %td
+              %input( name="register_username" id="register_username" size="50" class="required email" )
+          %tr
+            %th
+              %label( for="register_password1" ) Password:
+            %td
+              %input( name="register_password1" id="register_password1" type="password" class="required" )
+          %tr
+            %th
+              %label( for="register_password2" ) Password (again):
+            %td
+              %input( name="register_password2" id="register_password2" type="password" class="required" )
+          %tr
+            %th
+              %label( for="register_first" ) First Name:
+            %td
+              %input( name="register_first" id="register_first" class="required" )
+          %tr
+            %th
+              %label( for="register_last" ) Last Name:
+            %td
+              %input( name="register_last" id="register_last" class="required" )
+          %tr
+            %th
+              %label( for="register_timezone" ) Timezone:
+            %td
+              %select( name="register_timezone" id="register_timezone" class="required" )
+                %option
+                %option( value="-5.00" ) Eastern (-5.00)
+                %option( value="-6.00" ) Central (-6.00)
+                %option( value="-7.00" ) Mountain (-7.00)
+                %option( value="-8.00" ) Pacific (-8.00)
+        %input( name="register_profile" id="register_profile" hidden )
+        %button#register-button.button( type="submit" ) Register
+        %button#register-cancel.button( onclick="javascript:KOTH.toggle_register();") Close
+        %p.required All fields required
+      #register-error
     #landing-wrapper.hide
+      %h2 Welcome to KOTH
       %p KOTH (King of the Hill) is an NFL Pick'em / Survivor game.  You pick one team to win each week.  If they win, you go on, if they lose or tie, you are out.  The last entry standing is King of the Hill.
       %p To participate in this year's KOTH game, please register by following the 'Register' link above.  If you have already registered with the site, please login by following the 'Login' link above.
 
@@ -50,6 +93,7 @@
     /%script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js", :type => "text/javascript"}
     %script{:src => "js/jquery-1.6.2-min.js", :type => "text/javascript"}
     %script{:src => "js/jquery-ui-1.8.14-min.js", :type => "text/javascript"}
+    %script{:src => "js/jquery-validate-1.8.1-min.js", :type => "text/javascript"}
     %script{:src => "js/auth.js", :type => "text/javascript"}
     %script{:src => "js/base64.js", :type => "text/javascript"}
     %script{:src => "js/koth.js", :type => "text/javascript"}

@@ -3,9 +3,8 @@ var KOTH = {};
 
 (function($, A) {
 
-    // http://twitter.com/#!/ericflo/status/10598118215122944
     $.ajaxSetup({
-        cache: false,
+        cache: false, // http://twitter.com/#!/ericflo/status/10598118215122944
         accepts: {
             "koth"   : "application/koth-v1+json",
             "erlauth": "application/erlauth-v1+json"
@@ -17,7 +16,7 @@ var KOTH = {};
     });
 
     $(document).ready(function() {
-        A.init_login();
+        A.init_forms();
         if( !Auth.getUser(A.get_user_callback) ) {
             A.not_logged_in();
         }
@@ -28,14 +27,26 @@ var KOTH = {};
 
             }
         });
+        A.handle_hash();
     });
 
 
     $.extend(true, A, {
 
-        init_login: function() {
+        init_forms: function() {
             $("#login-form").submit(function() {
                 A.login( $(this) );
+            });
+            $("#register-form").submit(function() {
+                A.fill_register_profile( $(this) );
+                A.register( $(this) );
+            }).validate({
+                rules: {
+                    register_password1: "required",
+                    register_password2: {
+                        equalTo: "#register_password1"
+                    }
+                }
             });
         },
 
@@ -48,6 +59,13 @@ var KOTH = {};
                 }
             } else {
                 A.not_logged_in();
+            }
+        },
+
+        handle_hash: function() {
+            var hash = location.hash;
+            if( hash == "#register" ) {
+                $("#register-wrapper").show();
             }
         },
 
@@ -74,7 +92,7 @@ var KOTH = {};
         },
 
         toggle_register: function() {
-            $("#register-form-wrapper").toggle();
+            $("#register-wrapper").toggle();
         },
 
         login: function(form) {
@@ -107,6 +125,46 @@ var KOTH = {};
         logout: function() {
             Auth.clearCookies();
             window.location = "/";
+        },
+
+        // to be erlauth-compliant and have a register_profile field in form
+        fill_register_profile: function(form) {
+            var first = $("#register_first").val();
+            var last = $("#register_last").val();
+            var timezone = $("#register_timezone").val();
+            $("#register_profile").val(JSON.stringify({
+                first: first,
+                last: last,
+                timezone: timezone
+            }));
+        },
+
+        register: function(form) {
+            $("#register-button").hide();
+            var str = form.serialize();
+            $.ajax({
+                type: "POST",
+                url: "/api/register",
+                data: str,
+                dataType: "erlauth",
+                success: A.get_user_callback,
+                error: function(xhr, status, error) {
+                    var msg = "";
+                    if( xhr && xhr.status ) {
+                        switch( xhr.status ) {
+                        case 403:
+                            msg = "Username or password is incorrect.";
+                            break;
+                        case 502:
+                        default:
+                            msg = "There was an error on the server while " +
+                                "registering.";
+                        }
+                    }
+                    $("#register-error").text(msg);
+                }
+            });
+            $("#register-button").show();
         }
 
     });

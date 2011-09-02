@@ -10,3 +10,7 @@
 #login-wrapper #login-error {
     display: block;
 }
+
+#register-wrapper th {
+    text-align: right;
+}

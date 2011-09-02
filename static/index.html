@@ -42,11 +42,75 @@
           <a href='javascript: KOTH.logout();'>Log out</a>
         </div>
       </div>
-      <div class='hide' id='register-form-wrapper'>
-        register
-      </div>
+    </div>
+    <div class='hide' id='register-wrapper'>
+      <h2>Register for KOTH</h2>
+      <form action='javascript:;' id='register-form'>
+        <table>
+          <tr>
+            <th>
+              <label for='register_username'>Email Address:</label>
+            </th>
+            <td>
+              <input class='required email' id='register_username' name='register_username' size='50'>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label for='register_password1'>Password:</label>
+            </th>
+            <td>
+              <input class='required' id='register_password1' name='register_password1' type='password'>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label for='register_password2'>Password (again):</label>
+            </th>
+            <td>
+              <input class='required' id='register_password2' name='register_password2' type='password'>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label for='register_first'>First Name:</label>
+            </th>
+            <td>
+              <input class='required' id='register_first' name='register_first'>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label for='register_last'>Last Name:</label>
+            </th>
+            <td>
+              <input class='required' id='register_last' name='register_last'>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label for='register_timezone'>Timezone:</label>
+            </th>
+            <td>
+              <select class='required' id='register_timezone' name='register_timezone'>
+                <option></option>
+                <option value='-5.00'>Eastern (-5.00)</option>
+                <option value='-6.00'>Central (-6.00)</option>
+                <option value='-7.00'>Mountain (-7.00)</option>
+                <option value='-8.00'>Pacific (-8.00)</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <input hidden id='register_profile' name='register_profile'>
+        <button class='button' id='register-button' type='submit'>Register</button>
+        <button class='button' id='register-cancel' onclick='javascript:KOTH.toggle_register();'>Close</button>
+        <p class='required'>All fields required</p>
+      </form>
+      <div id='register-error'></div>
     </div>
     <div class='hide' id='landing-wrapper'>
+      <h2>Welcome to KOTH</h2>
       <p>KOTH (King of the Hill) is an NFL Pick'em / Survivor game.  You pick one team to win each week.  If they win, you go on, if they lose or tie, you are out.  The last entry standing is King of the Hill.</p>
       <p>To participate in this year's KOTH game, please register by following the 'Register' link above.  If you have already registered with the site, please login by following the 'Login' link above.</p>
     </div>
@@ -59,6 +123,7 @@
     <!-- %script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js", :type => "text/javascript"} -->
     <script src='js/jquery-1.6.2-min.js' type='text/javascript'></script>
     <script src='js/jquery-ui-1.8.14-min.js' type='text/javascript'></script>
+    <script src='js/jquery-validate-1.8.1-min.js' type='text/javascript'></script>
     <script src='js/auth.js' type='text/javascript'></script>
     <script src='js/base64.js' type='text/javascript'></script>
     <script src='js/koth.js' type='text/javascript'></script>
