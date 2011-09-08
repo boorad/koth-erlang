@@ -171,8 +171,17 @@ var KOTH = {};
 
         register_callback: function(user, status, xhr) {
             $("#register-error").text("");
+            A.clear_register_form();
             $("#register-form").hide();
             $("#register-success").show();
+        },
+
+        clear_register_form: function() {
+            $(':input','#register-form')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
         }
 
     });
