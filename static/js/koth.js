@@ -93,6 +93,8 @@ var KOTH = {};
 
         toggle_register: function() {
             $("#register-wrapper").toggle();
+            $("#register-form").show();
+            $("#register-success").hide();
         },
 
         login: function(form) {
@@ -147,13 +149,13 @@ var KOTH = {};
                 url: "/api/register",
                 data: str,
                 dataType: "erlauth",
-                success: A.get_user_callback,
+                success: A.register_callback,
                 error: function(xhr, status, error) {
                     var msg = "";
                     if( xhr && xhr.status ) {
                         switch( xhr.status ) {
-                        case 403:
-                            msg = "Username or password is incorrect.";
+                        case 409:
+                            msg = "Username already exists.";
                             break;
                         case 502:
                         default:
@@ -165,6 +167,12 @@ var KOTH = {};
                 }
             });
             $("#register-button").show();
+        },
+
+        register_callback: function(user, status, xhr) {
+            $("#register-error").text("");
+            $("#register-form").hide();
+            $("#register-success").show();
         }
 
     });

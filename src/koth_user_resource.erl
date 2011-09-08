@@ -10,7 +10,7 @@
 
 -include("koth.hrl").
 -include_lib("erlauth/include/erlauth.hrl").
--include_lib("eunit/include/eunit.hrl").
+
 
 init(Config) ->
   %% {{trace, "/tmp"}, Config}. %% debugging code
